@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenScape · arsitektur lanskap</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Favicon - menggunakan ikon pohon yang sama dengan logo -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cstyle%3E .tree %7B fill: %232f8f5c; %7D .trunk %7B fill: %235e4b3a; %7D %3C/style%3E%3Cpath class='tree' d='M50 5 L20 45 L35 45 L25 75 L40 75 L35 95 L65 95 L60 75 L75 75 L65 45 L80 45 L50 5' /%3E%3Crect class='trunk' x='45' y='75' width='10' height='20' /%3E%3C/svg%3E">
+    <link rel="alternate icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAyUlEQVR4AcXBsU0DQRRAwZ8DgoRDoUiJVEKRMiiBIhKESIiGKigQEgmd7Jl8nD61y7trZpIwPc/zPO+DT5+enpJkz/N835Kkz3meP5Kk7/u+lyQN4zj2SdIwjmOfJA3jOPZJ0jCOY58kDeM49knSMI5jnyQN4zj2SdIwjmOfJA3jOPZJ0jCOY58kDeM49knSMI5jnyQN4zj2SdIwjmOfJA3jOPZJ0jCOY58kDeM49knSMI5jnyQN4zj2SdIwjmOfJA3jOPZJ0jCOY58kDeM49r+SBxMTDkpZJhb1AAAAAElFTkSuQmCC">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f4fbf5;  /* latar sangat hijau muda */
+            color: #1c2e1f;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* palet hijau alami */
+        :root {
+            --hijau-dark: #0f3b1e;
+            --hijau-hutan: #1f5e3a;
+            --hijau-daun: #2f8f5c;
+            --hijau-muda: #a3d8b2;
+            --hijau-pucuk: #daf1da;
+            --krem-netral: #f9fff5;
+            --coklat-kayu: #5e4b3a;
+        }
+
+        /* header / navbar */
+        .navbar {
+            background: var(--hijau-dark);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 20px rgba(0, 40, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 4px solid var(--hijau-muda);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .logo i {
+            font-size: 2.4rem;
+            color: var(--hijau-muda);
+            filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.2));
+        }
+
+        .logo span {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #f0ffe0;
+            text-shadow: 2px 2px 0 #1b4b2b;
+        }
+
+        .nav-links a {
+            color: #ebf7e3;
+            text-decoration: none;
+            margin-left: 2.2rem;
+            font-weight: 500;
+            transition: 0.2s;
+            padding: 0.5rem 0.2rem;
+            border-bottom: 2px solid transparent;
+            font-size: 1.1rem;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: var(--hijau-muda);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* hero section */
+        .hero {
+            background: linear-gradient(125deg, #1b4e2b 0%, #2a7a48 70%, #5cb85c 100%);
+            padding: 4rem 5% 5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            border-bottom-left-radius: 4rem 2rem;
+            border-bottom-right-radius: 4rem 2rem;
+            box-shadow: inset 0 -8px 12px rgba(0,30,0,0.3), 0 12px 20px -8px #1f4d2b;
+        }
+
+        .hero-text {
+            flex: 1 1 300px;
+            max-width: 700px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 4px 4px 0 #0f3b1e;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-text .tagline {
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: #dcf7da;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            background: rgba(15, 40, 20, 0.5);
+            backdrop-filter: blur(2px);
+            padding: 1.2rem 1.8rem;
+            border-radius: 50px 8px 50px 8px;
+            border-left: 6px solid var(--hijau-muda);
+        }
+
+        .hero-image {
+            flex: 0 1 320px;
+            text-align: center;
+            filter: drop-shadow(8px 10px 12px #0b2f15);
+        }
+
+        .hero-image i {
+            font-size: 14rem;
+            color: #d0f0be;
+            background: radial-gradient(circle at 30% 30%, #f5ffe1, #95c28d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 6px 12px #16331e;
+        }
+
+        /* bagian layanan */
+        .section {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--hijau-hutan);
+            position: relative;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 120px;
+            height: 8px;
+            background: linear-gradient(90deg, var(--hijau-daun), #b9e6b9);
+            border-radius: 8px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .service-card {
+            background: var(--krem-netral);
+            padding: 2.5rem 1.8rem;
+            border-radius: 50px 20px 50px 20px;
+            box-shadow: 10px 12px 0 #1b4b2b, 0 10px 25px -8px #1b4e2b;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid var(--hijau-muda);
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 14px 18px 0 #0f3b1e, 0 20px 30px -8px #0f461f;
+        }
+
+        .service-card i {
+            font-size: 4rem;
+            color: var(--hijau-daun);
+            margin-bottom: 1.5rem;
+            background: #e2f3dc;
+            padding: 0.4rem;
+            border-radius: 40% 60% 40% 60%;
+        }
+
+        .service-card h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--hijau-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .service-card p {
+            color: #2b4d2b;
+            font-size: 1.05rem;
+        }
+
+        /* portofolio / proyek */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .port-item {
+            background: #deedd8;
+            border-radius: 40px 10px 40px 10px;
+            overflow: hidden;
+            border: 3px solid white;
+            outline: 3px solid var(--hijau-hutan);
+            box-shadow: 0 10px 20px rgba(30, 70, 30, 0.5);
+            transition: 0.2s;
+        }
+
+        .port-item:hover {
+            outline-color: #b5e6a3;
+            transform: scale(1.02);
+        }
+
+        .port-img {
+            height: 200px;
+            background: linear-gradient(145deg, #4f8a4f, #98c98e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e4a1e;
+        }
+
+        .port-img i {
+            font-size: 6rem;
+            color: #f7ffdc;
+            text-shadow: 2px 2px 0 #3a773a;
+        }
+
+        .port-item:nth-child(2) .port-img i { transform: rotate(5deg); }
+        .port-item:nth-child(3) .port-img i { transform: rotate(-5deg); }
+        .port-item:nth-child(4) .port-img i { font-size: 7rem; }
+
+        .port-desc {
+            padding: 1.5rem 1.2rem;
+            background: white;
+        }
+
+        .port-desc h4 {
+            font-size: 1.6rem;
+            color: var(--hijau-hutan);
+        }
+
+        .port-desc p {
+            color: #2e572e;
+        }
+
+        /* tentang & tim */
+        .about-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4rem;
+            background: #e7f5e3;
+            padding: 3rem;
+            border-radius: 80px 20px 80px 20px;
+            border: 6px solid var(--hijau-muda);
+            box-shadow: inset 0 0 0 4px white, 0 16px 24px #154d21;
+        }
+
+        .about-text {
+            flex: 2 1 300px;
+        }
+
+        .about-text h2 {
+            font-size: 2.4rem;
+            color: #1b552b;
+        }
+
+        .about-text p {
+            margin: 1.2rem 0;
+            font-size: 1.2rem;
+            color: #1d3f1d;
+        }
+
+        .team-preview {
+            flex: 1 1 250px;
+            background: #bde0b6;
+            padding: 2rem;
+            border-radius: 40px 0 40px 0;
+            border: 3px solid white;
+        }
+
+        .team-preview h3 {
+            font-size: 2rem;
+            border-bottom: 4px solid var(--hijau-hutan);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: #0e3b1a;
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .team-member i {
+            font-size: 2.8rem;
+            color: #1f6e3f;
+            background: #eaffdc;
+            border-radius: 50%;
+            padding: 0.3rem;
+        }
+
+        /* kontak / footer */
+        .kontak-section {
+            background: #164d23;
+            color: #ebffe3;
+            border-top: 12px solid #6daa75;
+            border-bottom: 12px solid #6daa75;
+            padding: 4rem 5%;
+            border-radius: 6rem 0 6rem 0;
+            margin-top: 2rem;
+        }
+
+        .kontak-flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .info-kontak i {
+            color: var(--hijau-pucuk);
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            width: 2rem;
+        }
+
+        .info-kontak p {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        .social a {
+            color: #daf6cf;
+            font-size: 2.2rem;
+            margin-left: 1.8rem;
+            transition: 0.2s;
+            display: inline-block;
+        }
+
+        .social a:hover {
+            color: #c0ffb0;
+            transform: scale(1.2) rotate(3deg);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 2px dashed #99cc99;
+            font-size: 1rem;
+            color: #c2e6b5;
+        }
+
+        /* responsif */
+        @media (max-width: 800px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links a {
+                margin: 0 1rem;
+            }
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .hero-image i {
+                font-size: 10rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* tombol fiktif */
+        .btn-hijau {
+            display: inline-block;
+            background: #277c4b;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            border: 2px solid #b1e6b1;
+            box-shadow: 0 8px 0 #0e3f1c;
+            transition: 0.1s linear;
+            text-decoration: none;
+        }
+
+        .btn-hijau:hover {
+            background: #1c9f54;
+            box-shadow: 0 4px 0 #0e3f1c;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+    <!-- navbar hijau -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-tree"></i>
+            <span>GreenScape</span>
+        </div>
+        <div class="nav-links">
+            <a href="#">Beranda</a>
+            <a href="#">Layanan</a>
+            <a href="#">Proyek</a>
+            <a href="#">Kontak</a>
+        </div>
+    </nav>
+
+    <!-- hero dengan latar hijau gradasi dan ilustrasi pohon -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Bangun <br>Lanskap Impian</h1>
+            <div class="tagline">Arsitektur hijau & konstruksi taman</div>
+            <p><i class="fas fa-leaf" style="margin-right: 10px;"></i>Kami menghadirkan keindahan alam ke halaman Anda dari konsultasi hingga perawatan, semua dengan sentuhan artistik dan ramah lingkungan.</p>
+            <a href="#" class="btn-hijau">Hubungi kami <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="hero-image">
+            <i class="fas fa-seedling"></i>
+            <!-- ikon pohon besar -->
+        </div>
+    </section>
+
+    <!-- Layanan unggulan (hijau semua) -->
+    <section class="section">
+        <h2 class="section-title">Layanan kami</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-pencil-ruler"></i>
+                <h3>Desain Taman</h3>
+                <p>Konsep eksklusif, sketsa 3D, dan pemilihan tanaman yang tepat untuk iklim tropis.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-trowel"></i>
+                <h3>Konstruksi</h3>
+                <p>Pembangunan hardscape, kolam, gazebo, dan sistem drainase berkelanjutan.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-water"></i>
+                <h3>Irigasi & Kolam</h3>
+                <p>Instalasi irigasi otomatis, kolam koi, serta fitur air yang menenangkan.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-leaf"></i>
+                <h3>Perawatan</h3>
+                <p>Pemangkasan, pemupukan, dan perawatan rutin agar lanskap selalu hijau.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portofolio proyek (gambar ikon pohon, semak) -->
+    <section class="section" style="background-color: #e6f3e0;">
+        <h2 class="section-title">Proyek terbaru</h2>
+        <div class="portfolio-grid">
+            <div class="port-item">
+                <div class="port-img"><i class="fas fa-tree"></i></div>
+                <div class="port-desc">
+                    <h4>Taman Vertikal</h4>
+                    <p>Kantor pusat · 150 m² dinding hijau otomatis.</p>
+                </div>
+            </div>
+            <div class="port-item">
+                <div class="port-img"><i class="fas fa-tree"></i><i class="fas fa-tree" style="font-size:4rem;"></i></div>
+                <div class="port-desc">
+                    <h4>Hutan Kota</h4>
+                    <p>Kawasan residensial dengan 200 pohon pelindung.</p>
+                </div>
+            </div>
+            <div class="port-item">
+                <div class="port-img"><i class="fas fa-water"></i><i class="fas fa-leaf"></i></div>
+                <div class="port-desc">
+                    <h4>Taman Air</h4>
+                    <p>Kolam alami + tanaman air, resort mewah.</p>
+                </div>
+            </div>
+            <div class="port-item">
+                <div class="port-img"><i class="fas fa-seedling"></i></div>
+                <div class="port-desc">
+                    <h4>Taman Atap</h4>
+                    <p>Rooftop garden dengan sayur & bunga.</p>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: right; margin-top: 2rem;">
+            <a href="#" style="color: #1b6e3f; font-weight: 600;">Lihat semua proyek <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- tentang perusahaan & tim kecil -->
+    <section class="section">
+        <div class="about-wrapper">
+            <div class="about-text">
+                <h2><i class="fas fa-seedling" style="color: #2a7a48;"></i> Tentang GreenScape</h2>
+                <p>Didirikan tahun 2012, kami adalah tim arsitek lanskap dan hortikultura yang percaya bahwa ruang hijau meningkatkan kualitas hidup. Setiap proyek dirancang dengan memperhatikan ekologi lokal dan gaya hidup klien.</p>
+                <p><i class="fas fa-check-circle" style="color: #2f8f5c;"></i> Lebih dari 200 taman & lanskap komersial.</p>
+                <p><i class="fas fa-check-circle" style="color: #2f8f5c;"></i> Menggunakan 80% tanaman endemik untuk keberlanjutan.</p>
+                <p><i class="fas fa-check-circle" style="color: #2f8f5c;"></i> Tim ahli bersertifikat & berpengalaman.</p>
+            </div>
+            <div class="team-preview">
+                <h3>Tim inti</h3>
+                <div class="team-member">
+                    <i class="fas fa-user-tie"></i>
+                    <div><strong>Andi Santoso</strong> — Arsitek lanskap</div>
+                </div>
+                <div class="team-member">
+                    <i class="fas fa-user-graduate"></i>
+                    <div><strong>Dewi Lestari</strong> — Hortikultura</div>
+                </div>
+                <div class="team-member">
+                    <i class="fas fa-user-helmet-safety"></i>
+                    <div><strong>Rizky Hidayat</strong> — Konstruksi</div>
+                </div>
+                <div class="team-member">
+                    <i class="fas fa-user-nurse"></i>
+                    <div><strong>Maya Sari</strong> — Perawatan taman</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- kontak / footer dengan tema hijau tua -->
+    <section class="kontak-section">
+        <div class="kontak-flex">
+            <div class="info-kontak">
+                <h3 style="font-size: 2.2rem; color: #d7f5cf;"><i class="fas fa-envelope-open-text"></i> Kontak</h3>
+                <p><i class="fas fa-map-pin"></i> Jl. Lestari Hijau No. 10, Malang</p>
+                <p><i class="fas fa-phone-alt"></i> (0341) 789 4562</p>
+                <p><i class="fas fa-envelope"></i> hello@greenscape.id</p>
+                <p><i class="fas fa-clock"></i> Senin - Sabtu: 08.00 - 18.00</p>
+            </div>
+            <div class="social">
+                <span style="font-size: 1.5rem; margin-right: 1rem;">Ikuti kami:</span>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 GreenScape Landscape Construction. Semua tanaman tumbuh dengan cinta. 🍃
+        </div>
+    </section>
+</body>
+</html>
